@@ -1,0 +1,14 @@
+# Files
+.DS_Store
+.env
+config.yaml
+
+
+
+# Folders
+data_dir
+.venv
+.claude
+**/__pycache__
+model_dir
+results
