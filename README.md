@@ -243,10 +243,10 @@ All settings are centralized in `config.yaml`:
 
 ```yaml
 training:
-  type: "polyencoder"                         # biencoder | projection_biencoder | late_interaction | polyencoder | dynquery | spanclass | convmatch
+  type: "biencoder"                           # biencoder | projection_biencoder | late_interaction | polyencoder | dynquery | spanclass | convmatch
   base_model: "bert-base-uncased"
                                               # Variant-specific parameters (ignored by models that don't use them)
-  projection_dim: 256                         # ProjectionBiEncoder / ConvMatch: projection head output dim
+  projection_dim: 256                         # ProjectionBiEncoder: projection head output dim
   contrastive_alpha: 0.1                      # ProjectionBiEncoder: weight for InfoNCE loss
   num_poly_codes: 16                          # PolyEncoder: number of learnable poly-codes
   token_projection_dim: 128                   # LateInteraction: token projection dim
@@ -260,12 +260,12 @@ training:
   learning_rate: 0.00002
   optimizer: "adamw"
   log_every: 50
-  save_every: 10
+  save_every: 25
   eval_every: 25
   model_dir: "model_dir"
-  push_to_hub: true
-  best_metric: "f1"
-  save_total_limit: 2
+  push_to_hub: true                            
+  best_metric: "f1"                            
+  save_total_limit: 2                          
   private: false
 
 dataset:
@@ -275,15 +275,27 @@ dataset:
   max_labels: 10
   max_negatives: 3
   test_ratio: 0.2
-  export_json: false                           # export dataset as data/synthetic_data.json
+  export_json: true                           # export dataset as data/synthetic_data.json
   push_to_hub: true                           # auto-push dataset to HF Hub after generation
-  dataset_repo_id: ""
+  dataset_repo_id: "hf_user_name/zero-shot-text-dataset"
   private: false
 
 benchmark:
   models:                                     # HF Hub repo IDs for default benchmark
-    # - "username/zero-shot-biencoder"
-    # - "username/zero-shot-polyencoder"
+    - "hf_user_name/polyencoder"
+    - "hf_user_name/biencoder"
+    - "hf_user_name/dynquery"
+    - "hf_user_name/projection_biencoder"
+    - "hf_user_name/late_interaction"
+    - "hf_user_name/convmatch"
+    - "hf_user_name/spanclass"
+
+
+llm_judge:
+  num_rounds: 6
+  batch_size: 5
+  model: "hf_user_name/type-zero-shot-text-model"
+
 ```
 
 ---
