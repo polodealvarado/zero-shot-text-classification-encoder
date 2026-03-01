@@ -25,8 +25,8 @@ from transformers import AutoModel, AutoTokenizer
 class LateInteractionModel(
     nn.Module,
     PyTorchModelHubMixin,
-    library_name="zero-shot-biencoder",
-    repo_url="https://github.com/your-username/zero-shot-classifier",
+    library_name="zero-shot-text-classification-encoder",
+    repo_url="https://github.com/polodealvarado/zero-shot-text-classification-encoder",
 ):
     """
     ColBERT-style late interaction model for zero-shot classification.
@@ -150,8 +150,10 @@ class LateInteractionModel(
             for j in range(actual):
                 label_idx = current + j
                 scores[i, j] = self.maxsim_score(
-                    text_embs[i], text_masks[i],
-                    label_embs[label_idx], label_masks[label_idx],
+                    text_embs[i],
+                    text_masks[i],
+                    label_embs[label_idx],
+                    label_masks[label_idx],
                 )
                 mask[i, j] = True
             current += count

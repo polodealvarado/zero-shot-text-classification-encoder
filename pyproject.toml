@@ -1,5 +1,5 @@
 [project]
-name = "zero-shot-classifier"
+name = "zero-shot-text-classification-encoder"
 version = "0.1.0"
 description = "Zero-shot text classification using a BiEncoder architecture"
 readme = "README.md"

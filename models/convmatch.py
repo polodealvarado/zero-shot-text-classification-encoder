@@ -31,8 +31,8 @@ from transformers import AutoModel, AutoTokenizer
 class ConvMatchModel(
     nn.Module,
     PyTorchModelHubMixin,
-    library_name="zero-shot-biencoder",
-    repo_url="https://github.com/your-username/zero-shot-classifier",
+    library_name="zero-shot-text-classification-encoder",
+    repo_url="https://github.com/polodealvarado/zero-shot-text-classification-encoder",
 ):
     """
     Multi-scale CNN model for zero-shot classification.
@@ -68,13 +68,14 @@ class ConvMatchModel(
 
         # Multi-scale convolutions: kernel sizes 2, 3, 4, 5
         self.kernel_sizes = [2, 3, 4, 5]
-        self.convs = nn.ModuleList([
-            nn.Conv1d(embed_dim, num_filters, k)
-            for k in self.kernel_sizes
-        ])
+        self.convs = nn.ModuleList(
+            [nn.Conv1d(embed_dim, num_filters, k) for k in self.kernel_sizes]
+        )
 
         # Projection to shared similarity space
-        self.projection = nn.Linear(len(self.kernel_sizes) * num_filters, projection_dim)
+        self.projection = nn.Linear(
+            len(self.kernel_sizes) * num_filters, projection_dim
+        )
 
     def _cnn_encode(self, texts: list[str]) -> torch.Tensor:
         """Encode texts via multi-scale CNN + max pool + project + L2 normalize.

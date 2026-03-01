@@ -26,8 +26,8 @@ from transformers import AutoModel, AutoTokenizer
 class BiEncoderModel(
     nn.Module,
     PyTorchModelHubMixin,
-    library_name="zero-shot-biencoder",
-    repo_url="https://github.com/your-username/zero-shot-classifier",
+    library_name="zero-shot-text-classification-encoder",
+    repo_url="https://github.com/polodealvarado/zero-shot-text-classification-encoder",
 ):
     """
     BiEncoder for zero-shot text classification.

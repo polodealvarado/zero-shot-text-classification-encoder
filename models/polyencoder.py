@@ -28,8 +28,8 @@ from transformers import AutoModel, AutoTokenizer
 class PolyEncoderModel(
     nn.Module,
     PyTorchModelHubMixin,
-    library_name="zero-shot-biencoder",
-    repo_url="https://github.com/your-username/zero-shot-classifier",
+    library_name="zero-shot-text-classification-encoder",
+    repo_url="https://github.com/polodealvarado/zero-shot-text-classification-encoder",
 ):
     """
     Poly-encoder for zero-shot classification.
@@ -137,15 +137,15 @@ class PolyEncoderModel(
         attn_scores = torch.bmm(
             label_embedding.unsqueeze(1),  # [B, 1, D]
             context_vectors.transpose(1, 2),  # [B, D, m]
-        ).squeeze(1)  # [B, m]
+        ).squeeze(
+            1
+        )  # [B, m]
 
         # Softmax over m codes
         attn_weights = F.softmax(attn_scores, dim=-1)  # [B, m]
 
         # Weighted sum: [B, 1, m] × [B, m, D] → [B, D]
-        text_repr = torch.bmm(
-            attn_weights.unsqueeze(1), context_vectors
-        ).squeeze(1)
+        text_repr = torch.bmm(attn_weights.unsqueeze(1), context_vectors).squeeze(1)
 
         return text_repr
 
