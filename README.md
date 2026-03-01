@@ -317,4 +317,4 @@ Each model repo includes: weights, tokenizer, `training_meta.json`, and an auto-
 |:---------|:------------|
 | [Development Notes](documentation/development.md) | Architecture decisions, implementation details, and design rationale |
 | [Literature Review](documentation/literature_review.md) | Papers 2019-2025, approach comparison, speed/accuracy trade-offs |
-| [Novel Architecture](documentation/novel_architecture.md) | Novel architecture proposals inspired by Zaratiana's research |
+| [Novel Architecture](documentation/models_architecture.md) | Novel architecture proposals and basic model implementations |
